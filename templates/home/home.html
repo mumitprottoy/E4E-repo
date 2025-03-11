@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/02c6faad26.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v={{version}}">
+    <script src='{% static "js/utils.js" %}?v={{version}}'></script>
+    <link rel="stylesheet" href='{% static "css/home.css" %}?v={{version}}'>
+    <title>E for English</title>
+</head>
+<body>
+    {% include "sidebar.html" %}
+    {% include "fixed_header.html" %}
+    <div class="sections-2">
+        <div id="main">
+            <div class="resp-80-90 m-c m-t-6">
+                {% include "floating_menu.html" %}
+
+    <div id="home-big" class="grid-col-11 p-2 sdw rnd-4">
+        <div>
+            <div class="m-t-2">
+                <img src="https://images.e-forenglish.com/pics/edtech4-flipped-cropped.jpg" alt="" class=" rnd-4 w-100">
+            </div>
+        </div>
+        <div>
+            <div class="txt-r font-xl" style="margin-right: 2rem;">
+                <h1 style="margin-right: 1rem;">
+                    <span class="font-b">Master</span> 
+                    <span class="font-b clr-theme">English</span>
+                    <br>
+                    <span class="font-ssm">Anytime, Anywhere.</span>
+                </h1>
+            </div>
+            <div class="m-t-b-2 txt-r" style="margin-right: 2.5rem;">
+                <img src="https://images.e-forenglish.com/pics/edtech6-r-cropped.jpg" alt="" class=" rnd-3 w-90">
+            </div>
+        </div>
+    </div>
+    
+    <div id="home-small" class="p-4 sdw rnd-4">
+        <div class="font-l">
+            <h1>
+                <span class="font-b">Master</span> 
+                <span class="font-b clr-theme">English</span>
+                <br>
+                <span class="font-ssm">Anytime, Anywhere.</span>
+            </h1>
+        </div>
+    </div>
+    {% include "home/main_copy.html" %}
+            </div>
+        </div>
+        {% include "footer.html" %}
+    </div>
+</body>
+</html>

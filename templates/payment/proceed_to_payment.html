@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <fieldset class="no-brd p-4 rnd-3 sdw m-t-b-6">
+        <legend class="p font-b bg-primary clr-white">Payment Info</legend>
+        <div class="grid-col-11">
+            {% if purchase.channel.not_organic %}
+            <div class="m font-b brd-b-def">Coupon</div>
+            <div class="m txt-r brd-b-def">{{purchase.channel.coupon_code}}</div>
+            {% else %}
+            <div class="m font-b brd-b-def">Coupon</div>
+            <div class="m txt-r brd-b-def clr-b-1">N/A</div>
+            {% endif %}
+            <div class="m font-b brd-b-def">Base Price</div>
+            <div class="m txt-r brd-b-def">BDT {{purchase.product.price}}</div>
+            <div class="m font-b brd-b-def">Discount</div>
+            <div class="m txt-r brd-b-def">BDT {{purchase.discounted_amount}}</div>
+            <div class="m m-t-2"><span class="font-b">Payable</span></div>
+            <div class="m m-t-2 txt-r">
+                {% if purchase.is_discounted %}
+                <span class="font-b"><del class="clr-b-3">BDT {{purchase.product.price}}</del> <span>BDT {{purchase.payable_amount}}</span></span>
+                {% else %}
+                <span class="font-b">BDT {{purchase.payable_amount}}</span>
+                {% endif %}
+            </div>
+        </div>
+    </fieldset>
+    <div class="w-fc m-c p m-t-b-4">
+        {% if purchase.is_payable %}
+        <button onclick="confirmPurchase()" type="submit" class="p-2 clr-white font-l bg-primary brd-primary rnd-1"><span class="clr-white">Proceed to pay BDT {{purchase.payable_amount}}</span> <span class="clr-white fa fa-arrow-right"></span></button>
+        {% else %}
+        <button onclick="confirmPurchase()" type="submit" class="p-2 clr-white font-l bg-primary brd-primary rnd-1"><span class="clr-white">Purchase for FREE</span> <span class="clr-white fa fa-arrow-right"></span></button>
+        {% endif %}
+    </div>
+    <fieldset class="no-brd brd-t-def m-t-2 txt-c p-2">
+        <legend class="p m-c">Or</legend>
+        {% if purchase.channel.not_organic %}
+        <a href="{% url 'upgrade-to-premium' %}" class="clr-primary font-b underline">Change Coupon Code</a>
+        {% else %}
+        <a href="{% url 'upgrade-to-premium' %}" class="clr-primary font-b underline">Add Coupon Code</a>
+        {% endif %}
+    </fieldset>
+    <form method='POST'>{% csrf_token %}</form>
+    <script>
+        const confirmPurchase = () => {
+        const confirmed = confirm('This will confirm the purchase. Are you sure?');
+        if (confirmed) 
+            form = document.getElementsByTagName('form')[0].submit();
+        }
+    </script>
+{% endblock content %}  

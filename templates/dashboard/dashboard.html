@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if short_report %}
+    <div class="m-t-b-4">
+        <a class="m p brd-b-theme" href="#">Last test</a>
+        <a class="m p clr-b-5 brd-b-def" href="/solved-answer-sheet/{{participant.test.key}}">Details</a>
+        <a class="m p clr-b-5 brd-b-def" href="{% url 'all-tests' %}">Previous tests</a>
+    </div>
+    {% include "dashboard/short_report.html" with short_report=short_report %}
+    {% else %}
+    {% include "give_quick_test.html" %}
+    {% endif %}
+    <div class="m-t-4">
+        {% if on_progress %}
+            <p class="font-l">On Progress</p>
+            {% for data in on_progress %}
+            <div class="brd-l-bar-theme p block m-t-b-4 rnd-1 bg-smoke">
+                <span class="font-l m block">{{data.chapter.name}}</span>
+                {% include "progress.html" with object=data bg='bg-white' %}
+                <a class="m" href="/practise-chapter/{{data.chapter.id}}">Practise</a>
+                <a class="m" href="/study/{{data.chapter.id}}">Study</a>
+            </div>
+            {% endfor %}
+            {% endif %}
+            
+            {% if untouched %}
+            <p class="font-l">Chapters to study</p>
+            {% for data in untouched %}
+            <div class="brd-l-bar-def p block m-t-b-4 rnd-1 bg-smoke">
+                <span class="font-l m block">{{data.chapter.name}}</span>
+                <a class="m" href="/practise-chapter/{{data.chapter.id}}">Practise</a>
+                <a class="m" href="/study/{{data.chapter.id}}">Study</a>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% include "floating_menu.html" with clr_dashboard='clr-theme' %}
+{% endblock content %}
